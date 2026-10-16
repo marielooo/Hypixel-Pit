@@ -1,0 +1,10 @@
+name: HypixelPit
+main: com.marielooo.hypixelpit.HypixelPit
+version: 0.1.0
+commands:
+  view:
+    description: View a player's Pit stats
+    usage: /view [player]
+  prestige:
+    description: Prestige when level 120
+    usage: /prestige
