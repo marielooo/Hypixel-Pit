@@ -152,6 +152,14 @@ public class PlayerData {
         renown += amount;
     }
 
+    public void incrementStreak() {
+        streak++;
+    }
+
+    public void resetStreak() {
+        streak = 0;
+    }
+
     public boolean canPrestige() {
         return level >= PitLeveling.MAX_LEVEL && prestige < PitLeveling.MAX_PRESTIGE;
     }

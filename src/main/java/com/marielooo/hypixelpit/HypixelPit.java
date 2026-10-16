@@ -3,8 +3,9 @@ package com.marielooo.hypixelpit;
 import com.marielooo.hypixelpit.commands.PitHelpCommand;
 import com.marielooo.hypixelpit.commands.PitStatsCommand;
 import com.marielooo.hypixelpit.commands.PrestigeCommand;
-import com.marielooo.hypixelpit.listeners.PitJoinListener;
 import com.marielooo.hypixelpit.data.PlayerData;
+import com.marielooo.hypixelpit.listeners.PitCombatListener;
+import com.marielooo.hypixelpit.listeners.PitJoinListener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -20,6 +21,7 @@ public class HypixelPit extends JavaPlugin {
         getDataFolder().mkdirs();
 
         getServer().getPluginManager().registerEvents(new PitJoinListener(), this);
+        getServer().getPluginManager().registerEvents(new PitCombatListener(), this);
 
         if (getCommand("pitstats") != null) {
             getCommand("pitstats").setExecutor(new PitStatsCommand());

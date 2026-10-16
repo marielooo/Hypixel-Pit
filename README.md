@@ -7,6 +7,8 @@ A lightweight Java 8 + Spigot 1.8.8 plugin scaffold for a Pit-inspired mechanics
 - XP progression with prestige scaling
 - gold and renown persistence
 - prestige reset behavior
+- kill reward system for XP and gold
+- streak handling on player deaths
 - `/pitstats`, `/prestige`, `/pithelp` commands
 
 ## Build
