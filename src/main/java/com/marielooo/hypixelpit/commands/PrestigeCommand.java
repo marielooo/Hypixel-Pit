@@ -12,18 +12,21 @@ public class PrestigeCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(ChatColor.RED + "Only players can use this command.");
+            sender.sendMessage(ChatColor.RED + "Only players may prestige.");
             return true;
         }
-        Player p = (Player) sender;
-        PlayerData pd = PlayerData.get(p.getUniqueId());
-        if (!pd.canPrestige()) {
-            p.sendMessage(ChatColor.RED + "You must be level 120 and below Prestige XXXV to prestige.");
+
+        Player player = (Player) sender;
+        PlayerData data = PlayerData.get(player.getUniqueId());
+
+        if (!data.canPrestige()) {
+            player.sendMessage(ChatColor.RED + "You must reach level 120 before you can prestige.");
             return true;
         }
-        pd.doPrestige();
-        p.sendMessage(ChatColor.GREEN + "You have prestiged! New prestige: " + ChatColor.YELLOW + pd.getPrestige());
-        p.sendMessage(ChatColor.GREEN + "You were awarded " + ChatColor.YELLOW + pd.getRenown() + ChatColor.GREEN + " renown total.");
+
+        data.prestige();
+        player.sendMessage(ChatColor.GOLD + "Prestige successful! " + ChatColor.YELLOW + "You are now " + data.getPrestigeDisplay());
+        player.sendMessage(ChatColor.GREEN + "You were awarded renown and a new perk slot.");
         return true;
     }
 }

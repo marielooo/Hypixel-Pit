@@ -1,49 +1,48 @@
 package com.marielooo.hypixelpit;
 
+import com.marielooo.hypixelpit.commands.PitHelpCommand;
+import com.marielooo.hypixelpit.commands.PitStatsCommand;
+import com.marielooo.hypixelpit.commands.PrestigeCommand;
+import com.marielooo.hypixelpit.listeners.PitJoinListener;
+import com.marielooo.hypixelpit.data.PlayerData;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import com.marielooo.hypixelpit.data.PlayerData;
-import com.marielooo.hypixelpit.listeners.JoinListener;
-import com.marielooo.hypixelpit.commands.ViewCommand;
-import com.marielooo.hypixelpit.commands.PrestigeCommand;
-
-import java.util.UUID;
-import java.util.logging.Logger;
 
 public class HypixelPit extends JavaPlugin {
 
     private static HypixelPit instance;
-    private Logger log;
 
     @Override
     public void onEnable() {
         instance = this;
-        log = getLogger();
-
-        // Create data folders
         saveDefaultConfig();
         getDataFolder().mkdirs();
 
-        // Register listeners and commands
-        getServer().getPluginManager().registerEvents(new JoinListener(), this);
-        getCommand("view").setExecutor(new ViewCommand());
-        getCommand("prestige").setExecutor(new PrestigeCommand());
+        getServer().getPluginManager().registerEvents(new PitJoinListener(), this);
 
-        log.info("HypixelPit enabled.");
+        if (getCommand("pitstats") != null) {
+            getCommand("pitstats").setExecutor(new PitStatsCommand());
+        }
+        if (getCommand("prestige") != null) {
+            getCommand("prestige").setExecutor(new PrestigeCommand());
+        }
+        if (getCommand("pithelp") != null) {
+            getCommand("pithelp").setExecutor(new PitHelpCommand());
+        }
+
+        getLogger().info("HypixelPit v0.2.0 enabled.");
     }
 
     @Override
     public void onDisable() {
-        // Save all loaded player data
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            PlayerData pd = PlayerData.get(p.getUniqueId());
-            if (pd != null) pd.save();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            PlayerData playerData = PlayerData.get(player.getUniqueId());
+            if (playerData != null) {
+                playerData.save();
+            }
         }
-        log.info("HypixelPit disabled.");
+        getLogger().info("HypixelPit disabled.");
     }
 
     public static HypixelPit getInstance() {
