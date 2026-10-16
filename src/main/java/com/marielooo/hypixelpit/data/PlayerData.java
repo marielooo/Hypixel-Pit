@@ -2,6 +2,8 @@ package com.marielooo.hypixelpit.data;
 
 import com.marielooo.hypixelpit.HypixelPit;
 import com.marielooo.hypixelpit.manager.PitLeveling;
+import com.marielooo.hypixelpit.manager.PitPassiveManager;
+import com.marielooo.hypixelpit.model.PitPassiveType;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -13,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerData {
 
-    private static final Map<UUID, PlayerData> CACHE = new ConcurrentHashMap<>();
+    private static final Map<UUID, PlayerData> CACHE = new ConcurrentHashMap<UUID, PlayerData>();
 
     private final UUID uuid;
     private int level = 1;
@@ -23,6 +25,10 @@ public class PlayerData {
     private long renown = 0L;
     private int perkSlots = 4;
     private int streak = 0;
+    private int megastreak = 0;
+    private int vile = 0;
+    private int funkyFeathers = 0;
+    private int[] passiveLevels = new int[PitPassiveType.values().length];
 
     private File file;
     private YamlConfiguration config;
@@ -61,6 +67,14 @@ public class PlayerData {
         renown = config.getLong("renown", 0L);
         perkSlots = config.getInt("perk-slots", 4);
         streak = config.getInt("streak", 0);
+        megastreak = config.getInt("megastreak", 0);
+        vile = config.getInt("vile", 0);
+        funkyFeathers = config.getInt("funky-feathers", 0);
+
+        for (int i = 0; i < PitPassiveType.values().length; i++) {
+            PitPassiveType type = PitPassiveType.values()[i];
+            passiveLevels[i] = config.getInt("passives." + type.name().toLowerCase(), 0);
+        }
     }
 
     public void save() {
@@ -74,6 +88,14 @@ public class PlayerData {
         config.set("renown", renown);
         config.set("perk-slots", perkSlots);
         config.set("streak", streak);
+        config.set("megastreak", megastreak);
+        config.set("vile", vile);
+        config.set("funky-feathers", funkyFeathers);
+
+        for (int i = 0; i < PitPassiveType.values().length; i++) {
+            PitPassiveType type = PitPassiveType.values()[i];
+            config.set("passives." + type.name().toLowerCase(), passiveLevels[i]);
+        }
 
         try {
             config.save(file);
@@ -115,6 +137,18 @@ public class PlayerData {
         return streak;
     }
 
+    public int getMegastreak() {
+        return megastreak;
+    }
+
+    public int getVile() {
+        return vile;
+    }
+
+    public int getFunkyFeathers() {
+        return funkyFeathers;
+    }
+
     public void setLevel(int level) {
         this.level = Math.max(1, Math.min(level, PitLeveling.MAX_LEVEL));
     }
@@ -154,10 +188,50 @@ public class PlayerData {
 
     public void incrementStreak() {
         streak++;
+        if (streak >= 50) {
+            megastreak = streak;
+        }
     }
 
     public void resetStreak() {
         streak = 0;
+        megastreak = 0;
+    }
+
+    public void addVile(int amount) {
+        vile = Math.max(0, vile + amount);
+    }
+
+    public void addFunkyFeathers(int amount) {
+        funkyFeathers = Math.max(0, funkyFeathers + amount);
+    }
+
+    public int getPassiveLevel(PitPassiveType type) {
+        if (type == null) {
+            return 0;
+        }
+        int idx = type.ordinal();
+        if (idx < 0 || idx >= passiveLevels.length) {
+            return 0;
+        }
+        return passiveLevels[idx];
+    }
+
+    public void increasePassiveLevel(PitPassiveType type) {
+        if (type == null) {
+            return;
+        }
+        int idx = type.ordinal();
+        if (idx < 0 || idx >= passiveLevels.length) {
+            return;
+        }
+        if (PitPassiveManager.canUpgrade(passiveLevels[idx])) {
+            passiveLevels[idx]++;
+        }
+    }
+
+    public double getPassiveMultiplier(PitPassiveType type) {
+        return PitPassiveManager.getPassiveMultiplier(type, getPassiveLevel(type));
     }
 
     public boolean canPrestige() {
@@ -178,6 +252,11 @@ public class PlayerData {
         xp = 0L;
         gold = 0L;
         streak = 0;
+        megastreak = 0;
+
+        for (int i = 0; i < passiveLevels.length; i++) {
+            passiveLevels[i] = 0;
+        }
 
         renown += 25L + prestige;
         perkSlots = Math.min(perkSlots + 1, 8);

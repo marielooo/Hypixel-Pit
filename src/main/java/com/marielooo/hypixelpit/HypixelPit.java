@@ -3,6 +3,9 @@ package com.marielooo.hypixelpit;
 import com.marielooo.hypixelpit.commands.PitHelpCommand;
 import com.marielooo.hypixelpit.commands.PitStatsCommand;
 import com.marielooo.hypixelpit.commands.PrestigeCommand;
+import com.marielooo.hypixelpit.commands.RenownShopCommand;
+import com.marielooo.hypixelpit.commands.PassiveCommand;
+import com.marielooo.hypixelpit.commands.MysticCommand;
 import com.marielooo.hypixelpit.data.PlayerData;
 import com.marielooo.hypixelpit.listeners.PitCombatListener;
 import com.marielooo.hypixelpit.listeners.PitJoinListener;
@@ -32,19 +35,28 @@ public class HypixelPit extends JavaPlugin {
         if (getCommand("pithelp") != null) {
             getCommand("pithelp").setExecutor(new PitHelpCommand());
         }
+        if (getCommand("renownshop") != null) {
+            getCommand("renownshop").setExecutor(new RenownShopCommand());
+        }
+        if (getCommand("passive") != null) {
+            getCommand("passive").setExecutor(new PassiveCommand());
+        }
+        if (getCommand("mystic") != null) {
+            getCommand("mystic").setExecutor(new MysticCommand());
+        }
 
-        getLogger().info("HypixelPit v0.2.0 enabled.");
+        getLogger().info("HypixelPit v0.3.0 enabled.");
     }
 
     @Override
     public void onDisable() {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            PlayerData playerData = PlayerData.get(player.getUniqueId());
-            if (playerData != null) {
-                playerData.save();
+            PlayerData data = PlayerData.get(player.getUniqueId());
+            if (data != null) {
+                data.save();
             }
         }
-        getLogger().info("HypixelPit disabled.");
+        getLogger().info("HypixelPit v0.3.0 disabled.");
     }
 
     public static HypixelPit getInstance() {

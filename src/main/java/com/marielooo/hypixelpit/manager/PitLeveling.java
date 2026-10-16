@@ -1,5 +1,7 @@
 package com.marielooo.hypixelpit.manager;
 
+import com.marielooo.hypixelpit.model.PitPassiveType;
+
 public final class PitLeveling {
 
     public static final int MAX_LEVEL = 120;
@@ -41,5 +43,9 @@ public final class PitLeveling {
             return "No Prestige";
         }
         return "Prestige " + prestige;
+    }
+
+    public static String getPassiveSummary(PitPassiveType type, int level) {
+        return type.name() + " Lv." + level;
     }
 }

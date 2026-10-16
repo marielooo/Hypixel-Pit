@@ -15,9 +15,9 @@ public class PitJoinListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        PlayerData playerData = PlayerData.getIfLoaded(event.getPlayer().getUniqueId());
-        if (playerData != null) {
-            playerData.save();
+        PlayerData data = PlayerData.getIfLoaded(event.getPlayer().getUniqueId());
+        if (data != null) {
+            data.save();
         }
     }
 }

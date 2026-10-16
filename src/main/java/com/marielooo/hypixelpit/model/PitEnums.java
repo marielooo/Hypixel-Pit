@@ -1,0 +1,39 @@
+package com.marielooo.hypixelpit.model;
+
+public enum PitPassiveType {
+    XP_BOOST,
+    GOLD_BOOST,
+    MELEE_DAMAGE,
+    BOW_DAMAGE,
+    DAMAGE_REDUCTION,
+    BUILD_BATTLER
+}
+
+public enum PitPerkType {
+    GOLDEN_HEADS,
+    VAMPIRE,
+    STRENGTH_CHAINING,
+    GLADIATOR,
+    BOUNTY_HUNTER,
+    SAFETY_FIRST,
+    TRICKLER,
+    MINEMAN,
+    RAMBO,
+    OLYMPUS,
+    CONGLOMERATE,
+    ASSISTANT_TO_THE_STREAKER,
+    RECON,
+    DIRTY
+}
+
+public enum MysticItemType {
+    FRESH_MYSTIC_SWORD,
+    FRESH_MYSTIC_BOW,
+    FRESH_PANTS_RED,
+    FRESH_PANTS_ORANGE,
+    FRESH_PANTS_YELLOW,
+    FRESH_PANTS_GREEN,
+    FRESH_PANTS_BLUE,
+    SEWER_AQUA_PANTS,
+    DARK_PANTS
+}

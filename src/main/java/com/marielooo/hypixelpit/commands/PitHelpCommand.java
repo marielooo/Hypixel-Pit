@@ -12,6 +12,9 @@ public class PitHelpCommand implements CommandExecutor {
         sender.sendMessage(ChatColor.GOLD + "=== Hypixel Pit Commands ===");
         sender.sendMessage(ChatColor.YELLOW + "/pitstats [player]" + ChatColor.GRAY + " - show a Pit profile");
         sender.sendMessage(ChatColor.YELLOW + "/prestige" + ChatColor.GRAY + " - prestige at level 120");
+        sender.sendMessage(ChatColor.YELLOW + "/renownshop" + ChatColor.GRAY + " - open the Renown shop menu");
+        sender.sendMessage(ChatColor.YELLOW + "/passive" + ChatColor.GRAY + " - show passive upgrades");
+        sender.sendMessage(ChatColor.YELLOW + "/mystic" + ChatColor.GRAY + " - show Mystic item life values");
         sender.sendMessage(ChatColor.YELLOW + "/pithelp" + ChatColor.GRAY + " - show this help menu");
         return true;
     }

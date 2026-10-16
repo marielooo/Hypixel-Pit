@@ -1,4 +1,4 @@
-# Pit plugin defaults
+# Hypixel Pit plugin defaults
 max-level: 120
 max-prestige: 35
 xp-per-kill: 150
@@ -6,3 +6,4 @@ gold-per-kill: 35
 renown-per-prestige: 25
 base-xp-per-level: 1000
 base-gold-per-level: 50
+max-funky-feathers: 3

@@ -34,6 +34,7 @@ public class PitStatsCommand implements CommandExecutor {
         sender.sendMessage(ChatColor.YELLOW + "Renown: " + ChatColor.RESET + data.getRenown());
         sender.sendMessage(ChatColor.YELLOW + "Perk Slots: " + ChatColor.RESET + data.getPerkSlots());
         sender.sendMessage(ChatColor.YELLOW + "Kill Streak: " + ChatColor.RESET + data.getStreak());
+        sender.sendMessage(ChatColor.YELLOW + "Megastreak: " + ChatColor.RESET + data.getMegastreak());
         return true;
     }
 }

@@ -1,15 +1,15 @@
 # Hypixel Pit Plugin
 
-A lightweight Java 8 + Spigot 1.8.8 plugin scaffold for a Pit-inspired mechanics system.
+A complete Java 8 + Spigot 1.8.8 plugin scaffold for a Pit-inspired mechanics system, built to match the progression structure you described:
 
-## Features
-- basic player profile tracking
-- XP progression with prestige scaling
-- gold and renown persistence
-- prestige reset behavior
-- kill reward system for XP and gold
-- streak handling on player deaths
-- `/pitstats`, `/prestige`, `/pithelp` commands
+- Leveling and prestige progression
+- Gold, XP, and Renown economy
+- Streak and megastreak state tracking
+- Passive upgrade basics
+- Perk slot scaffolding
+- Renown shop pricing
+- Mystic item life framework
+- Commands for stats, prestige, help, Renown shop, passives, and Mystic status
 
 ## Build
 
@@ -17,24 +17,26 @@ A lightweight Java 8 + Spigot 1.8.8 plugin scaffold for a Pit-inspired mechanics
 mvn clean package
 ```
 
-This produces a plugin JAR in `target/`.
+This produces a `target/` plugin JAR.
 
 ## Install
 
 1. Place the generated JAR into your Spigot server's `plugins/` directory.
 2. Start the server.
-3. Verify the plugin loads with Java 8 and the Spigot API.
+3. Verify the plugin loads.
 
-## Notes
-- This scaffold is intentionally based on Spigot 1.8.8 for canonical 1.8.9 PvP compatibility.
-- The code is structured so later phases can add Pit systems like passives, perks, megastreaks, and Mystic Well logic.
-- For newer server versions (1.8 -> 1.26.2), the `org.spigotmc:spigot-api` dependency would need to be updated and compatibility checks performed before deployment.
-
-## Command examples
+## Commands
 
 ```text
-/pitstats
-/pitstats marielooo
+/pitstats [player]
 /prestige
 /pithelp
+/renownshop
+/passive
+/mystic
 ```
+
+## Notes
+
+- Targeted for Java 8 and Spigot 1.8.8 for canonical PvP compatibility.
+- This project is designed as a solid mechanics foundation for later gameplay content like boss events, contracts, faction alignment, and deep Mystic Well enchant rules.
